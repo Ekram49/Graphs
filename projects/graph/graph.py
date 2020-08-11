@@ -13,33 +13,54 @@ class Graph:
         """
         Add a vertex to the graph.
         """
-        pass  # TODO
+        self.vertices[vertex_id] = set()
 
     def add_edge(self, v1, v2):
         """
         Add a directed edge to the graph.
         """
-        pass  # TODO
+        self.vertices[v1].add(v2)
 
     def get_neighbors(self, vertex_id):
         """
         Get all neighbors (edges) of a vertex.
         """
-        pass  # TODO
+        return self.vertices[vertex_id]
 
     def bft(self, starting_vertex):
         """
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        q = Queue()
+        q.enqueue(starting_vertex)
+        visited = set()
+        while q.size() > 0:
+            current_node = q.dequeue()
+            print(f"{current_node}")
+            neighbors = self.get_neighbors(current_node)
+            for n in neighbors:
+                if n not in visited:
+                    q.enqueue(n) 
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        s = stack()
+        s.push(starting_vertex)
+        visited = set()
+        while s.size() > 0:
+            current_node = s.pop()
+            if current_node not in visited:
+                print(f'{current_node}')
+            if current_node not in visited:
+                visited.add(current_node)
+                neighbors = self.get_neighbors(current_node)
+                for n in neighbors:
+                    if n not in visited:
+                        s.push(n)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -48,7 +69,13 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        if visited is None:
+            visited = set()
+        visited.add(starting_vertex)
+        print(starting_vertex)
+        for edge in self.vertices[starting_vertex]:
+            if edge not in visited:
+                self.dft_recursive(edge, visted)
 
     def bfs(self, starting_vertex, destination_vertex):
         """
